@@ -11,6 +11,9 @@ import { AdSlot } from "@/components/AdSlot";
 const BY_N = Object.fromEntries(QUESTIONS.map((q) => [q.n, q]));
 const TOTAL = QUESTIONS.length;
 const ANALYZING_MS = 2200;
+const PICK_MS = 380; // 누른 답이 강조된 채 머무는 시간
+// 위에서부터 매우 그렇다 → 전혀 아니다
+const ANSWER_ORDER = [4, 3, 2, 1, 0];
 
 const secondsSince = (t: number) => Math.round((Date.now() - t) / 1000);
 
@@ -23,6 +26,7 @@ export function TestRunner() {
   const [p, setP] = useState<Progress | null>(null);
   const [cheer, setCheer] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
+  const [picked, setPicked] = useState<number | null>(null);
   const locked = useRef(false);
   const progressRef = useRef<Progress | null>(null);
   useEffect(() => {
@@ -73,6 +77,10 @@ export function TestRunner() {
   function answer(value: number) {
     if (locked.current || !p) return;
     locked.current = true;
+    setPicked(value);
+    try {
+      navigator.vibrate?.(12);
+    } catch {}
     const answers = { ...p.answers, [q.n]: value };
     const answered = p.index + 1;
 
@@ -88,8 +96,8 @@ export function TestRunner() {
         duration_sec: secondsSince(p.startedAt),
         scores: result.scores,
       });
-      setAnalyzing(true);
-      setTimeout(() => router.push(`/r/${slug}`), ANALYZING_MS);
+      setTimeout(() => setAnalyzing(true), PICK_MS);
+      setTimeout(() => router.push(`/r/${slug}`), PICK_MS + ANALYZING_MS);
       return;
     }
 
@@ -99,8 +107,9 @@ export function TestRunner() {
       setP(next);
       saveProgress(next);
       setCheer(CHEERS[answered] ?? null);
+      setPicked(null);
       locked.current = false;
-    }, 160);
+    }, PICK_MS);
   }
 
   function back() {
@@ -163,16 +172,25 @@ export function TestRunner() {
       </div>
 
       <div className="mt-8 flex flex-col gap-2.5 pb-8">
-        {ANSWER_LABELS.map((label, value) => {
-          const selected = current === value;
+        {ANSWER_ORDER.map((value) => {
+          const label = ANSWER_LABELS[value];
+          const isPicked = picked === value;
+          // 방금 누른 답 > 이전에 골랐던 답(뒤로가기로 돌아온 경우)
+          const selected = picked === null ? current === value : isPicked;
           return (
             <button
               key={label}
               onClick={() => answer(value)}
-              className={`rounded-full border-2 py-3.5 text-base font-semibold transition active:scale-[0.98] ${
-                selected ? "border-accent bg-accent text-white" : "border-pink bg-card"
+              aria-pressed={selected}
+              className={`relative rounded-full border-2 py-3.5 text-base font-semibold transition-all duration-150 active:scale-[0.97] active:bg-blush ${
+                selected
+                  ? "scale-[1.03] border-accent bg-accent text-white shadow-[0_4px_0_#c42a53]"
+                  : picked !== null
+                    ? "border-line bg-card opacity-40"
+                    : "border-pink bg-card hover:bg-blush"
               }`}
             >
+              {isPicked && <span className="animate-pop absolute left-5 top-1/2 -translate-y-1/2">♥</span>}
               {label}
             </button>
           );

@@ -46,7 +46,7 @@ async function drawStory(d: StoryData): Promise<Blob> {
   canvas.height = H;
   const ctx = canvas.getContext("2d")!;
   const css = getComputedStyle(document.documentElement);
-  const display = css.getPropertyValue("--font-jua").trim() || "sans-serif";
+  const display = css.getPropertyValue("--font-point").trim() || "sans-serif";
   const script = css.getPropertyValue("--font-vibes").trim() || "cursive";
   const body = '"Pretendard Variable", Pretendard, sans-serif';
   await Promise.all([

@@ -24,7 +24,7 @@
   --color-blush: var(--blush);
   --color-sky: var(--sky);
   --font-sans: "Pretendard Variable", Pretendard, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-display: var(--font-jua), var(--font-sans);
+  --font-display: var(--font-point), var(--font-sans);
   --font-script: var(--font-vibes), cursive;
 }
 

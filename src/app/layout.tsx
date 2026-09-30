@@ -4,9 +4,10 @@ import Link from "next/link";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
-const jua = localFont({
-  src: "../assets/Jua-Regular.ttf",
-  variable: "--font-jua",
+// 포인트 글씨체. 바꿀 땐 이 파일 경로만 교체
+const point = localFont({
+  src: "../assets/PyeongChangPeace-Bold.ttf",
+  variable: "--font-point",
   display: "swap",
 });
 
@@ -29,7 +30,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="ko" className={`${jua.variable} ${vibes.variable} h-full antialiased`}>
+    <html lang="ko" className={`${point.variable} ${vibes.variable} h-full antialiased`}>
       <head>
         <link
           rel="stylesheet"

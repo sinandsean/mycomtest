@@ -6,13 +6,13 @@ import { SITE } from "./site";
 export const OG_SIZE = { width: 1200, height: 630 };
 
 const fonts = Promise.all([
-  readFile(join(process.cwd(), "src/assets/Jua-Regular.ttf")),
+  readFile(join(process.cwd(), "src/assets/PyeongChangPeace-Bold.ttf")),
   readFile(join(process.cwd(), "src/assets/GreatVibes-Regular.ttf")),
 ]);
 
 // 링크 미리보기 이미지 (카톡·인스타 DM 등). 만화책 표지 톤.
 export async function renderOg(opts: { kicker: string; headline: string; tagline: string }) {
-  const [jua, vibes] = await fonts;
+  const [point, vibes] = await fonts;
   const stroke = (w: number) => {
     const s: string[] = [];
     for (let a = 0; a < 360; a += 30) {
@@ -31,7 +31,7 @@ export async function renderOg(opts: { kicker: string; headline: string; tagline
           background: "#fffafc",
           backgroundImage: "radial-gradient(circle, rgba(236,61,107,0.18) 3px, transparent 3.5px)",
           backgroundSize: "24px 24px",
-          fontFamily: "Jua",
+          fontFamily: "Point",
           padding: 40,
         }}
       >
@@ -66,7 +66,7 @@ export async function renderOg(opts: { kicker: string; headline: string; tagline
     {
       ...OG_SIZE,
       fonts: [
-        { name: "Jua", data: jua, style: "normal", weight: 400 },
+        { name: "Point", data: point, style: "normal", weight: 400 },
         { name: "Great Vibes", data: vibes, style: "normal", weight: 400 },
       ],
     },
