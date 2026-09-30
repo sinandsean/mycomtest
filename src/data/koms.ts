@@ -347,6 +347,14 @@ export const RARITY_ORDER: KomId[] = [
   "dajeong",
 ];
 
+// 규칙대로 붙이면 어색한 조합만 따로 지정 ("주콤-보조콤": 제목). 2026-09-30 검수
+export const TITLE_OVERRIDES: Partial<Record<`${KomId}-${KomId}`, string>> = {
+  "oji-yeonha": "동안 아저씨",
+  "yeonha-oji": "애어른 연하남",
+  "oji-jungseong": "미중년",
+  "inoe-furry": "이세계 수인",
+};
+
 export function comboTitle(main: KomId, sub: KomId) {
-  return `${KOM_BY_ID[main].adj} ${KOM_BY_ID[sub].noun}`;
+  return TITLE_OVERRIDES[`${main}-${sub}`] ?? `${KOM_BY_ID[main].adj} ${KOM_BY_ID[sub].noun}`;
 }

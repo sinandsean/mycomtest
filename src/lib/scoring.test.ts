@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { KOMS, RARITY_ORDER } from "@/data/koms";
+import { KOMS, RARITY_ORDER, comboTitle } from "@/data/koms";
 import { QUESTIONS } from "@/data/questions";
 import { computeResult, rankKoms, shuffleQuestions, type Answers } from "./scoring";
 
@@ -53,5 +53,15 @@ describe("문항 섞기", () => {
       expect(new Set(s.map((q) => q.n)).size).toBe(64);
       for (let i = 1; i < s.length; i++) expect(s[i].kom).not.toBe(s[i - 1].kom);
     }
+  });
+});
+
+describe("결과 제목", () => {
+  it("규칙 조합", () => expect(comboTitle("eumchim", "jipchak")).toBe("음침한 집착남"));
+  it("개별 지정 조합", () => {
+    expect(comboTitle("oji", "yeonha")).toBe("동안 아저씨");
+    expect(comboTitle("yeonha", "oji")).toBe("애어른 연하남");
+    expect(comboTitle("oji", "jungseong")).toBe("미중년");
+    expect(comboTitle("inoe", "furry")).toBe("이세계 수인");
   });
 });
