@@ -1,25 +1,11 @@
 import type { Character } from "@/data/characters";
 
-const MEDIUM_COLOR: Record<Character["medium"], string> = {
-  드라마: "#ec3d6b",
-  영화: "#7a2e2e",
-  애니: "#6aa9d6",
-  웹툰: "#2a9d8f",
-  "웹툰·드라마": "#2a9d8f",
-};
-
 function Row({ c, badge }: { c: Character; badge?: string }) {
   return (
     <li className="flex flex-col gap-1 border-b border-dashed border-line py-3 last:border-0">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         <span className="font-display text-lg">{c.name}</span>
         <span className="text-xs text-muted">{c.work}</span>
-        <span
-          className="rounded-full px-2 py-0.5 text-[10px] font-semibold text-white"
-          style={{ background: MEDIUM_COLOR[c.medium] }}
-        >
-          {c.medium}
-        </span>
         {badge && <span className="rounded-full border border-accent px-2 py-0.5 text-[10px] text-accent">{badge}</span>}
       </div>
       <p className="text-[15px] leading-relaxed">{c.note}</p>
