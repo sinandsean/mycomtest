@@ -5,6 +5,8 @@ import { CHEOLBYEOK, KOM_BY_ID } from "@/data/koms";
 import { allComboSlugs, comboHeadline, parseCombo } from "@/lib/combos";
 import { komImage } from "@/lib/images";
 import { ANALYSIS } from "@/data/analysis";
+import { CHARACTERS } from "@/data/characters";
+import { CharacterList } from "@/components/CharacterList";
 import { AdSlot } from "@/components/AdSlot";
 import { AnalysisSection } from "@/components/AnalysisSection";
 import { Flourish } from "@/components/Flourish";
@@ -105,6 +107,14 @@ export default async function ResultPage({ params }: PageProps<"/r/[combo]">) {
           <p className="mt-4 text-xs text-muted">※ 현실 연애에선 이건 위험 신호입니다. 픽션에서만 즐기세요.</p>
         )}
       </section>
+
+      {main && sub && (
+        <CharacterList
+          main={CHARACTERS[main.id].slice(0, 3)}
+          extra={CHARACTERS[sub.id][0]}
+          extraLabel={`+ ${sub.name}`}
+        />
+      )}
 
       <AnalysisSection a={ANALYSIS[look.id]} />
 

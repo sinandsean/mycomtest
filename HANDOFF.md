@@ -23,6 +23,8 @@ Next.js 16 (App Router) · React 19 · Tailwind v4 · TypeScript · PostHog · V
 |---|---|
 | 결과 문구·콤 이름·색·수식어/명사 | `src/data/koms.ts` |
 | 어색한 조합 제목 개별 지정 | `src/data/koms.ts`의 `TITLE_OVERRIDES` |
+| "이 취향이 말해주는 당신" 긴 분석 | `src/data/analysis.ts` |
+| 콤별 대표 캐릭터 (결과엔 핵심 3 + 보조 1) | `src/data/characters.ts` |
 | 문항·응원 멘트 | `src/data/questions.ts` |
 | 채점·동점·철벽형·문항 섞기 | `src/lib/scoring.ts` (+ `scoring.test.ts`) |
 | 이벤트 | `src/lib/analytics.ts`, 초기화는 `src/instrumentation-client.ts` |
@@ -70,7 +72,8 @@ Next.js 16 (App Router) · React 19 · Tailwind v4 · TypeScript · PostHog · V
 - [ ] PostHog 프로젝트 키 넣기
 - [ ] Vercel 연결, `dev` 미리보기를 혜민에게 공유 (미리보기 보호 끄기)
 - [ ] 혜민 캐릭터 이미지 16+1장 → `public/koms/` (요청서: `docs/이미지요청서.md`)
-- [ ] 결과 문구 최종 검토 (란경)
+- [ ] 결과 문구 최종 검토 (란경): `src/data/koms.ts`, `src/data/analysis.ts`
+- [ ] 대표 캐릭터 검수: `src/data/characters.ts` (AI 초안이라 작품·인물 매칭을 사람이 확인해야 함)
 - [ ] 도메인 구매 → `NEXT_PUBLIC_SITE_URL` 설정 (스토리 이미지 하단·공유 링크에 찍힘)
 - [ ] 광고 네트워크 결정 → `AdSlot.tsx` 연결, `/privacy`에 업체 고지 추가
 - [ ] 카카오톡 공유 (지금은 Web Share API + 링크 복사만 있음)
