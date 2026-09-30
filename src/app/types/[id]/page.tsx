@@ -3,7 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { KOMS, KOM_BY_ID, type KomId } from "@/data/koms";
 import { komImage } from "@/lib/images";
+import { ANALYSIS } from "@/data/analysis";
 import { AdSlot } from "@/components/AdSlot";
+import { AnalysisSection } from "@/components/AnalysisSection";
 import { KomVisual } from "@/components/KomVisual";
 import { TypesViewTracker } from "./TypesViewTracker";
 
@@ -49,6 +51,8 @@ export default async function KomPage({ params }: PageProps<"/types/[id]">) {
           <p className="mt-4 text-xs text-muted">※ 현실 연애에선 이건 위험 신호입니다. 픽션에서만 즐기세요.</p>
         )}
       </section>
+
+      <AnalysisSection a={ANALYSIS[k.id]} />
 
       <p className="mt-6 text-center text-sm">
         취향 친구{" "}

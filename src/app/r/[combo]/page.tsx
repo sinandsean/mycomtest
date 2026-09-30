@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import { CHEOLBYEOK, KOM_BY_ID } from "@/data/koms";
 import { allComboSlugs, comboHeadline, parseCombo } from "@/lib/combos";
 import { komImage } from "@/lib/images";
+import { ANALYSIS } from "@/data/analysis";
 import { AdSlot } from "@/components/AdSlot";
+import { AnalysisSection } from "@/components/AnalysisSection";
 import { Flourish } from "@/components/Flourish";
 import { KomVisual } from "@/components/KomVisual";
 import { RetakeLink, ScoreProfile, VisitorCta } from "@/components/result/ResultIslands";
@@ -72,6 +74,18 @@ export default async function ResultPage({ params }: PageProps<"/r/[combo]">) {
         </div>
       )}
 
+      {/* 공유는 결과 보자마자 누를 수 있게 위에 */}
+      <div className="mt-6">
+        <ShareButtons
+          slug={c.slug}
+          headline={headline}
+          tagline={look.tagline}
+          color={look.color}
+          emoji={look.emoji}
+          image={image}
+        />
+      </div>
+
       <AdSlot id="result-top" />
 
       <section className="panel px-5 py-6 leading-[1.85]">
@@ -91,6 +105,10 @@ export default async function ResultPage({ params }: PageProps<"/r/[combo]">) {
           <p className="mt-4 text-xs text-muted">※ 현실 연애에선 이건 위험 신호입니다. 픽션에서만 즐기세요.</p>
         )}
       </section>
+
+      <AnalysisSection a={ANALYSIS[look.id]} />
+
+      <AdSlot id="result-mid" />
 
       <ScoreProfile slug={c.slug} />
 
@@ -112,7 +130,8 @@ export default async function ResultPage({ params }: PageProps<"/r/[combo]">) {
 
       <Flourish className="mt-10" />
 
-      <div className="mt-6">
+      <p className="mt-6 text-center font-display text-lg text-accent">다 읽었다면, 친구도 털어볼 차례</p>
+      <div className="mt-3">
         <ShareButtons
           slug={c.slug}
           headline={headline}
