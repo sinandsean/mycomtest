@@ -3,7 +3,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = { title: "개인정보처리방침" };
 
-// 초안. 광고 네트워크가 정해지면 해당 업체 고지 문구를 추가해야 한다.
+// 광고는 카카오 애드핏. 네트워크를 바꾸거나 더하면 3번 항목의 업체 고지를 고친다.
 export default function PrivacyPage() {
   return (
     <main className="flex-1 pt-10 text-[15px] leading-[1.85]">
@@ -27,8 +27,12 @@ export default function PrivacyPage() {
         <div>
           <h2 className="font-bold">3. 광고</h2>
           <p>
-            사이트에는 제3자 광고가 게재될 수 있으며, 광고 사업자는 쿠키를 사용해 이용자의 방문 기록에 기반한 광고를
-            제공할 수 있습니다. 이용자는 브라우저 설정에서 쿠키를 거부할 수 있습니다.
+            사이트는 카카오의 광고 플랫폼 애드핏(AdFit)을 통해 광고를 게재합니다. 카카오는 쿠키 등을 사용해 이용자의
+            방문 기록에 기반한 광고를 제공할 수 있습니다. 자세한 내용은{" "}
+            <a href="https://www.kakao.com/policy/privacy" className="underline" target="_blank" rel="noopener noreferrer">
+              카카오 개인정보처리방침
+            </a>
+            에서 확인할 수 있습니다. 이용자는 브라우저 설정에서 쿠키를 거부할 수 있습니다.
           </p>
         </div>
         <div>
