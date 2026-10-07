@@ -147,3 +147,8 @@ body::before {
 .animate-beat {
   animation: beat 0.9s ease-in-out infinite;
 }
+
+/* 애드센스가 광고를 못 채운 자리(심사 중·광고 없음)는 빈 칸과 라벨까지 통째로 숨긴다 */
+.ad-slot:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
+  display: none;
+}

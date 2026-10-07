@@ -63,7 +63,7 @@ export function AdSlot({ id }: { id: string }) {
   }
 
   return (
-    <aside aria-label="광고" className="my-6 flex flex-col items-center">
+    <aside aria-label="광고" className="ad-slot my-6 flex flex-col items-center">
       <span className="mb-1 text-[11px] text-muted">광고</span>
       <div ref={boxRef} style={{ width: ad.width, height: ad.height }} className="overflow-hidden" />
     </aside>
