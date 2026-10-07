@@ -7,11 +7,11 @@ export type AdUnit = { slot: string; width: number; height: number };
 export const ADSENSE_CLIENT = process.env.NEXT_PUBLIC_ADSENSE_CLIENT ?? "";
 
 export const AD_UNITS: Record<string, AdUnit> = {
-  "home-bottom": { slot: "", width: 320, height: 100 },
-  analyzing: { slot: "", width: 320, height: 100 },
-  "result-top": { slot: "", width: 320, height: 100 },
-  "result-mid": { slot: "", width: 300, height: 250 },
-  "result-bottom": { slot: "", width: 320, height: 100 },
-  "types-bottom": { slot: "", width: 320, height: 100 },
-  "type-bottom": { slot: "", width: 320, height: 100 },
+  "home-bottom": { slot: "3113955285", width: 320, height: 100 },
+  analyzing: { slot: "7283019178", width: 320, height: 100 },
+  "result-top": { slot: "5014194460", width: 320, height: 100 },
+  "result-mid": { slot: "5740118622", width: 300, height: 250 },
+  "result-bottom": { slot: "1074949452", width: 320, height: 100 },
+  "types-bottom": { slot: "8174710276", width: 320, height: 100 },
+  "type-bottom": { slot: "6861628607", width: 320, height: 100 },
 };
