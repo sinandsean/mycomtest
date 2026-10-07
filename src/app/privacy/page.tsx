@@ -3,7 +3,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = { title: "개인정보처리방침" };
 
-// 광고는 카카오 애드핏. 네트워크를 바꾸거나 더하면 3번 항목의 업체 고지를 고친다.
+// 광고는 구글 애드센스. 네트워크를 바꾸거나 더하면 3번 항목의 업체 고지를 고친다.
 export default function PrivacyPage() {
   return (
     <main className="flex-1 pt-10 text-[15px] leading-[1.85]">
@@ -27,12 +27,21 @@ export default function PrivacyPage() {
         <div>
           <h2 className="font-bold">3. 광고</h2>
           <p>
-            사이트는 카카오의 광고 플랫폼 애드핏(AdFit)을 통해 광고를 게재합니다. 카카오는 쿠키 등을 사용해 이용자의
-            방문 기록에 기반한 광고를 제공할 수 있습니다. 자세한 내용은{" "}
-            <a href="https://www.kakao.com/policy/privacy" className="underline" target="_blank" rel="noopener noreferrer">
-              카카오 개인정보처리방침
+            사이트는 Google 애드센스를 통해 광고를 게재합니다. Google을 비롯한 제3자 광고 사업자는 쿠키를 사용해
+            이용자가 이 사이트와 다른 사이트를 방문한 기록을 바탕으로 광고를 제공합니다. Google이 데이터를 사용하는 방식은{" "}
+            <a
+              href="https://policies.google.com/technologies/partner-sites"
+              className="underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google 파트너 사이트 정책
             </a>
-            에서 확인할 수 있습니다. 이용자는 브라우저 설정에서 쿠키를 거부할 수 있습니다.
+            에서 확인할 수 있습니다. 맞춤 광고를 원하지 않으면{" "}
+            <a href="https://adssettings.google.com" className="underline" target="_blank" rel="noopener noreferrer">
+              Google 광고 설정
+            </a>
+            에서 끌 수 있고, 브라우저 설정에서 쿠키를 거부할 수도 있습니다.
           </p>
         </div>
         <div>

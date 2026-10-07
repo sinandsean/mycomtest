@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Link from "next/link";
+import { ADSENSE_CLIENT } from "@/data/ads";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
   title: { default: `${SITE.name} ~${SITE.subtitle}~`, template: `%s | ${SITE.name}` },
   description: SITE.description,
   openGraph: { siteName: SITE.name, type: "website", locale: "ko_KR" },
+  other: ADSENSE_CLIENT ? { "google-adsense-account": ADSENSE_CLIENT } : undefined,
 };
 
 export const viewport: Viewport = {
@@ -36,6 +38,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
         />
+        {ADSENSE_CLIENT && (
+          <script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+            crossOrigin="anonymous"
+          />
+        )}
       </head>
       <body className="min-h-full flex flex-col">
         <div className="mx-auto w-full max-w-[480px] flex-1 flex flex-col px-4">{children}</div>

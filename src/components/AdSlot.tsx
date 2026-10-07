@@ -1,21 +1,26 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AD_UNITS } from "@/data/ads";
+import { ADSENSE_CLIENT, AD_UNITS } from "@/data/ads";
 
-const ADFIT_SDK = "https://t1.kakaocdn.net/kas/static/ba.min.js";
+declare global {
+  interface Window {
+    adsbygoogle?: unknown[];
+  }
+}
 
-// 카카오 애드핏 광고 자리. 광고단위 ID는 src/data/ads.ts에서 관리한다.
-// ID가 없으면 개발 중에는 자리 표시만, 실제 사이트에서는 아무것도 안 보인다.
-// 광고가 늦게 떠도 화면이 밀리지 않게 높이를 미리 잡고, 화면 가까이 왔을 때만 불러온다.
+// 구글 애드센스 광고 자리. 광고단위는 src/data/ads.ts에서 관리한다.
+// 게시자 ID나 슬롯 ID가 없으면 개발 중에는 자리 표시만, 실제 사이트에서는 아무것도 안 보인다.
+// 광고가 늦게 떠도 화면이 밀리지 않게 크기를 고정하고, 화면 가까이 왔을 때만 광고를 요청한다.
 export function AdSlot({ id }: { id: string }) {
   const ad = AD_UNITS[id];
+  const enabled = Boolean(ADSENSE_CLIENT && ad?.slot);
   const boxRef = useRef<HTMLDivElement>(null);
   const [near, setNear] = useState(false);
 
   useEffect(() => {
     const box = boxRef.current;
-    if (!box || !ad?.unit) return;
+    if (!box || !enabled) return;
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
@@ -27,27 +32,25 @@ export function AdSlot({ id }: { id: string }) {
     );
     observer.observe(box);
     return () => observer.disconnect();
-  }, [ad?.unit]);
+  }, [enabled]);
 
-  // SPA라 페이지를 옮길 때마다 <ins>와 SDK를 새로 넣는다. SDK는 로드될 때 아직 안 채운 kakao_ad_area를 찾아 채운다.
+  // SPA라 페이지를 옮기면 이 컴포넌트가 새로 그려지고 새 <ins>가 생긴다. 그 <ins>마다 한 번씩 광고를 요청한다.
   useEffect(() => {
     const box = boxRef.current;
-    if (!near || !box || !ad?.unit) return;
+    if (!near || !box || !enabled) return;
     const ins = document.createElement("ins");
-    ins.className = "kakao_ad_area";
-    ins.style.display = "none";
-    ins.setAttribute("data-ad-unit", ad.unit);
-    ins.setAttribute("data-ad-width", String(ad.width));
-    ins.setAttribute("data-ad-height", String(ad.height));
-    const script = document.createElement("script");
-    script.async = true;
-    script.charset = "utf-8";
-    script.src = ADFIT_SDK;
-    box.append(ins, script);
+    ins.className = "adsbygoogle";
+    ins.style.display = "inline-block";
+    ins.style.width = `${ad.width}px`;
+    ins.style.height = `${ad.height}px`;
+    ins.setAttribute("data-ad-client", ADSENSE_CLIENT);
+    ins.setAttribute("data-ad-slot", ad.slot);
+    box.append(ins);
+    (window.adsbygoogle = window.adsbygoogle ?? []).push({});
     return () => box.replaceChildren();
-  }, [near, ad]);
+  }, [near, enabled, ad]);
 
-  if (!ad?.unit) {
+  if (!enabled) {
     if (process.env.NODE_ENV !== "development") return null;
     return (
       <div
