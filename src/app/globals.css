@@ -148,7 +148,14 @@ body::before {
   animation: beat 0.9s ease-in-out infinite;
 }
 
-/* 애드센스가 광고를 못 채운 자리(심사 중·광고 없음)는 빈 칸과 라벨까지 통째로 숨긴다 */
-.ad-slot:has(ins.adsbygoogle[data-ad-status="unfilled"]) {
-  display: none;
+/* 광고 자리는 접어 두고 애드센스가 광고를 채웠을 때만 펼친다. 심사 중·광고 없음이면 끝까지 안 보인다.
+   display:none이면 애드센스가 칸 크기를 못 재 요청이 실패하므로 높이만 0으로 접는다. */
+.ad-slot {
+  height: 0;
+  overflow: hidden;
+}
+.ad-slot:has(ins.adsbygoogle[data-ad-status="filled"]) {
+  height: auto;
+  overflow: visible;
+  margin-block: 1.5rem;
 }

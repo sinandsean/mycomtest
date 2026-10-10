@@ -11,16 +11,19 @@ declare global {
 
 // 구글 애드센스 광고 자리. 광고단위는 src/data/ads.ts에서 관리한다.
 // 게시자 ID나 슬롯 ID가 없으면 개발 중에는 자리 표시만, 실제 사이트에서는 아무것도 안 보인다.
-// 광고가 늦게 떠도 화면이 밀리지 않게 크기를 고정하고, 화면 가까이 왔을 때만 광고를 요청한다.
+// 화면 가까이 왔을 때만 광고를 요청한다. 자리는 접어 두었다가 구글이 광고를 채웠을 때만 펼친다(globals.css의 .ad-slot).
+// 심사 중이거나 광고가 없을 때 빈 칸·라벨이 떴다 사라지는 깜빡임을 막는다.
 export function AdSlot({ id }: { id: string }) {
   const ad = AD_UNITS[id];
   const enabled = Boolean(ADSENSE_CLIENT && ad?.slot);
+  const slotRef = useRef<HTMLElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const [near, setNear] = useState(false);
 
+  // 접힌 자리는 높이가 0이라 자리(aside) 자체를 지켜본다. 안쪽 칸은 잘려 있어 교차 판정이 안 된다.
   useEffect(() => {
-    const box = boxRef.current;
-    if (!box || !enabled) return;
+    const slot = slotRef.current;
+    if (!slot || !enabled) return;
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
@@ -30,7 +33,7 @@ export function AdSlot({ id }: { id: string }) {
       },
       { rootMargin: "200px" },
     );
-    observer.observe(box);
+    observer.observe(slot);
     return () => observer.disconnect();
   }, [enabled]);
 
@@ -63,7 +66,7 @@ export function AdSlot({ id }: { id: string }) {
   }
 
   return (
-    <aside aria-label="광고" className="ad-slot my-6 flex flex-col items-center">
+    <aside ref={slotRef} aria-label="광고" className="ad-slot flex flex-col items-center">
       <span className="mb-1 text-[11px] text-muted">광고</span>
       <div ref={boxRef} style={{ width: ad.width, height: ad.height }} className="overflow-hidden" />
     </aside>
