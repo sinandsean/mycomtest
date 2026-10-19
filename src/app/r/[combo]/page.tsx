@@ -30,6 +30,8 @@ export async function generateMetadata({ params }: PageProps<"/r/[combo]">): Pro
     title: `나의 콤 유형은 「${headline}」`,
     description: `${tagline}. 너는 무슨 콤이야?`,
     openGraph: { title: `나의 콤 유형은 「${headline}」`, description: tagline },
+    // 240개 조합은 핵심·보조 콤 문단을 조합한 비슷한 페이지라 검색엔 콤 도감만 올린다. 공유 링크·미리보기는 그대로 동작.
+    robots: { index: false, follow: true },
   };
 }
 
